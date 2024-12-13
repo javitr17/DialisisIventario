@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemodiálisis Linense</title>
+    <link href="/styles.css" rel="stylesheet">
+    <link href="/css/baseStyles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+    <!-- Barra de navegación -->
+    <nav class="bg-blue-500 text-white shadow-md h-40">
+        <div class="max-w-7xl mx-auto px-6 h-full">
+            <div class="relative flex justify-between">
+                <!-- Título pegado arriba -->
+                <div class="absolute top-2">
+                    <h1 class="text-xl font-bold">Hemodiálisis Linense</h1>
+                </div>
+                <!-- Opciones de navegación pegadas arriba -->
+                <div class="flex space-x-6 absolute top-2 right-6">
+                    <a href="/inventario" class="text-lg font-medium hover:bg-blue-400 px-3 py-1 rounded-md <%= page === 'inventario' ? 'bg-blue-400' : '' %>">
+                        <i class="fa-solid fa-inbox"></i> Inventario
+                    </a>
+                    <a href="/compras" class="text-lg font-medium hover:bg-blue-400 px-3 py-1 rounded-md <%= page === 'compras' ? 'bg-blue-400' : '' %>"><i class="fa-regular fa-circle-check"></i> Compras</a>
+                    <a href="/salidas" class="text-lg font-medium hover:bg-blue-400 px-3 py-1 rounded-md <%= page === 'salidas' ? 'bg-blue-400' : '' %>"><i class="fa-regular fa-paper-plane"></i> Salidas</a>
+                    <a href="/ubicaciones" class="text-lg font-medium hover:bg-blue-400 px-3 py-1 rounded-md <%= page === 'ubicaciones' ? 'bg-blue-400' : '' %>"><i class="fa-solid fa-location-dot"></i> Ubicación</a>
+                    
+                    <!-- Botón de Cerrar Sesión -->
+                    <button id="logoutButton" class="text-lg font-medium hover:bg-red-400 px-3 py-1 rounded-md bg-red-500 text-white">
+                        <i class="fa-solid fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-16 pt-6 border-t border-white border-opacity-10">
+                <h1 class="text-3xl font-bold"><%= pageTitle %></h1>
+                <!-- Campo de búsqueda y botón 'Add' -->
+                <div class="flex items-center space-x-4">
+                    <!-- Campo de búsqueda -->
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-white"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar" class="pl-10 p-2 rounded-md bg-blue-400 text-white placeholder-white focus:outline-none focus:border-white border border-transparent">
+                    </div>
+                    <button id="openFormButton" class="px-4 py-2 bg-white text-blue-500 border border-blue-500 rounded-md hover:bg-blue-100"><i class="fa-solid fa-plus"></i>Añadir</button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    
+      

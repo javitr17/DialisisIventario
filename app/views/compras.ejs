@@ -1,0 +1,119 @@
+<%- include('header') %>
+<div id="sideFormContainer" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
+    <div class="flex justify-center items-center h-full">
+        <!-- Contenedor blanco -->
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+            <!-- Botón de cierre -->
+            <button id="closeFormButton" class="text-black font-bold text-xl absolute"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-2xl font-semibold mb-4 text-center">Añadir</h2>
+            <form id="dataForm">
+            
+                <label for="supplier">Nombre proveedor</label>
+                <input type="text" id="supplier" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="product_id">ID producto</label>
+                <input type="number" id="product_id" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="supplier_prod_reference">ID producto (Proveedor)</label>
+                <input type="text" id="supplier_prod_reference" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="total_price">Precio total</label>
+                <input type="number" id="total_price" class="w-full p-2 mb-4 border border-gray-300 rounded-md" step="any" required>
+
+                <label for="ordered_units">Unidades</label>
+                <input type="number" id="ordered_units" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="arrival_date">Fecha llegada</label>
+                <input type="date" id="arrival_date" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+            
+                <div class="flex justify-between">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Guardar</button>
+                    <button type="button" id="cancelButton" class="bg-gray-300 text-black px-4 py-2 rounded-md">Cancelar</button>
+                </div>
+                <div id="errorMessageContainer" class="hidden text-red-500 mt-4 text-center"></div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+  
+<div class="container mx-auto p-4 flex justify-center">
+    
+    <!-- Contenedor con desbordamiento horizontal -->
+    <div class="overflow-x-auto w-full max-w-7xl"> <!-- Este contenedor hará que la tabla sea desplazable horizontalmente -->
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead class="bg-gray-200">
+    <tr>
+        <th class="p-2 text-left border border-gray-300">ID</th>
+        <th class="p-2 text-left border border-gray-300">Producto ID</th>
+        <th class="p-2 text-left border border-gray-300">Producto ID (Proveedor)</th>
+        <th class="p-2 text-left border border-gray-300">Nombre Producto</th>
+        <th class="p-2 text-left border border-gray-300">Proveedor</th>
+        <th class="p-2 text-left border border-gray-300">Fecha</th>
+        <th class="p-2 text-left border border-gray-300">Fecha Llegada Prevista</th>
+        <th class="p-2 text-left border border-gray-300">Cantidad</th>
+        <th class="p-2 text-left border border-gray-300">Cantidad Total Llegada</th>
+        <th class="p-2 text-left border border-gray-300">Precio Total</th>
+    </tr>
+</thead>
+<tbody>
+    <!-- Mostrar las compras -->
+    <% purchases.forEach(purchase => { %>
+        <tr>
+            <td class="p-2 border-b border-gray-300"><%= purchase.id %></td>
+            <td class="p-2 border-b border-gray-300"><%= purchase.product_id %></td>
+            <td class="p-2 border-b border-gray-300"><%= purchase.supplier_prod_reference %></td>
+            <td class="p-2 border-b border-gray-300"><%= purchase.product_name %></td>
+            <td class="p-2 border-b border-gray-300"><%= purchase.supplier %></td>
+            <td class="p-2 border-b border-gray-300">
+                <%= new Date(purchase.date).toLocaleDateString('es-ES') %>
+            </td>
+            <td class="p-2 border-b border-gray-300"><%= new Date(purchase.arrival_date).toLocaleDateString('es-ES') %></td>
+            <td class="p-2 border-b border-gray-300"><%= purchase.ordered_units %></td>
+            <td class="p-2 border-b border-gray-300">
+                <div class="arrived-units-container" style="display: flex; align-items: center;">
+                    <% if (purchase.arrived_units) { %>
+                        <span id="arrived-units-<%= purchase.id %>"><%= purchase.arrived_units %></span>
+                        <i class="fa-regular fa-pen-to-square edit-arrived-units" 
+                            data-id="<%= purchase.id %>" 
+                            style="margin-left: 10px; cursor: pointer; color: #aaa;"></i>
+                    <% } else { %>
+                        <button 
+                            class="bg-blue-500 text-white px-2 py-1 rounded-md edit-arrived-units" 
+                            data-id="<%= purchase.id %>">+</button>
+                    <% } %>
+                </div>
+            </td>            
+            <td class="p-2 border-b border-gray-300"><%= purchase.total_price %>€</td>
+        </tr>
+    <% }) %>
+</tbody>
+
+
+        </table>
+    </div>
+</div>
+
+<% if (message) { %>
+    <div id="errorOverlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white p-4 rounded-lg shadow-lg w-96 text-center relative">
+            <button id="closeOverlayButton" class="absolute top-2 right-2 text-gray-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <p class="text-gray-700 mb-4">
+                <%= message %>
+            </p>
+            <button id="dismissOverlayButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Aceptar</button>
+        </div>
+    </div>
+<% } %>
+
+
+
+<script src="/js/compras.js"></script>
+<script src="/js/cerrar_sesion.js"></script>
+
+</body>
+
+</html>

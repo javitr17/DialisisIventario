@@ -1,0 +1,81 @@
+<%- include('header') %>
+
+<div id="sideFormContainer" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
+    <div class="flex justify-center items-center h-full">
+        <!-- Contenedor blanco -->
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+            <!-- Botón de cierre -->
+            <button id="closeFormButton" class="text-black font-bold text-xl absolute top-2 right-2"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-2xl font-semibold mb-4 text-center">Registrar Ubicación</h2>
+            <form id="dataForm">
+                <label for="product_id">ID Producto</label>
+                <input type="text" id="product_id" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="product_provider_id">ID Producto (Proveedor)</label> <!-- Nuevo campo -->
+                <input type="text" id="product_provider_id" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required> <!-- Nuevo campo -->
+
+                <label for="location">Ubicación</label>
+                <input type="text" id="location" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+
+                <label for="units">Unidades</label>
+                <input type="number" id="units" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>                
+
+                <div class="flex justify-between">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Guardar</button>
+                    <button type="button" id="cancelButton" class="bg-gray-300 text-black px-4 py-2 rounded-md">Cancelar</button>
+                </div>
+                <div id="errorMessageContainer" class="hidden text-red-500 mt-4 text-center"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto p-4 flex justify-center">
+    <!-- Contenedor con desbordamiento horizontal -->
+    <div class="overflow-x-auto w-full max-w-7xl">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 text-left border border-gray-300">ID</th>
+                    <th class="p-2 text-left border border-gray-300">ID Producto (Proveedor)</th>
+                    <th class="p-2 text-left border border-gray-300">ID Producto</th>
+                    <th class="p-2 text-left border border-gray-300">Nombre Producto</th>
+                    <th class="p-2 text-left border border-gray-300">Ubicación</th>
+                    <th class="p-2 text-left border border-gray-300">Unidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% locations.forEach(location => { %>
+                    <tr>
+                        <td class="p-2 border-b border-gray-300"><%= location.id %></td>
+                        <td class="p-2 border-b border-gray-300"><%= location.supplier_prod_reference %></td>
+                        <td class="p-2 border-b border-gray-300"><%= location.product_id %></td>
+                        <td class="p-2 border-b border-gray-300"><%= location.product_name %></td>
+                        <td class="p-2 border-b border-gray-300"><%= location.location %></td>
+                        <td class="p-2 border-b border-gray-300">
+                            <div class="arrived-units-container" style="display: flex; align-items: center;">
+                                <% if (location.units) { %>
+                                    <span id="units-display-<%= location.id %>"><%= location.units %></span>
+                                    <i class="fa-regular fa-pen-to-square edit-units-icon" 
+                                        data-id="<%= location.id %>" 
+                                        style="margin-left: 10px; cursor: pointer; color: #aaa;"></i>
+                                <% } else { %>
+                                    <span id="units-display-<%= location.id %>"><%= location.units %></span>
+                                    <i class="fa-regular fa-pen-to-square edit-units-icon" 
+                                        data-id="<%= location.id %>" 
+                                        style="margin-left: 10px; cursor: pointer; color: #aaa;"></i>
+                                <% } %>
+                            </div>
+                        </td>    
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/ubicaciones.js"></script>
+<script src="/js/cerrar_sesion.js"></script>
+
+</body>
+</html>

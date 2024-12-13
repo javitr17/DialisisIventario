@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <style>
+        /* Estilos básicos para el formulario */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para el mensaje de error */
+        #error-message {
+            color: red;
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Iniciar sesión</h2>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Correo electrónico" required />
+            <input type="password" id="password" placeholder="Contraseña" required />
+            <button type="submit">Iniciar sesión</button>
+            <p id="error-message"></p> <!-- Aquí se mostrará el mensaje de error -->
+        </form>
+    </div>
+
+    <script>
+        // Evento para manejar el formulario de inicio de sesión
+        document.getElementById('login-form').addEventListener('submit', async (event) => {
+            event.preventDefault();  // Prevenir el envío tradicional del formulario
+
+            // Obtener los valores del formulario
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Mostrar el mensaje de error como oculto antes de la solicitud
+            const errorMessageElement = document.getElementById("error-message");
+            errorMessageElement.style.display = 'none';  // Ocultar mensaje de error previo
+            errorMessageElement.innerText = '';  // Limpiar el mensaje anterior
+
+            // Verificar que los campos no estén vacíos
+            if (!email || !password) {
+                errorMessageElement.innerText = "Correo y contraseña son obligatorios.";
+                errorMessageElement.style.display = 'block';  // Mostrar el mensaje de error
+                return;  // Detener el envío de la solicitud si hay campos vacíos
+            }
+
+            // Realizar la solicitud POST al backend para verificar las credenciales
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',  // Asegurarse de que sea JSON
+                    },
+                    body: JSON.stringify({ email, password })  // Enviar los datos como un JSON
+                });
+
+                const result = await response.json();  // Parsear la respuesta JSON
+
+                // Verificar si la respuesta fue exitosa
+                if (response.ok) {
+                    // Si es exitoso, redirigir o hacer lo que sea necesario
+                    window.location.href = "/inventario";  // O cualquier otra acción que desees
+                } else {
+                    // Si la autenticación falla, mostrar el mensaje de error
+                    errorMessageElement.innerText = result.message;  // Mostrar el mensaje del backend
+                    errorMessageElement.style.display = 'block';  // Mostrar el mensaje de error
+                }
+
+            } catch (error) {
+                // En caso de que haya un error con la solicitud, mostrar un mensaje general
+                console.error("Error en la solicitud:", error);
+                errorMessageElement.innerText = "Hubo un error al procesar la solicitud. Por favor, intente de nuevo.";
+                errorMessageElement.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

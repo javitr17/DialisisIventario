@@ -1,0 +1,8 @@
+FIREBASE_API_KEY: "AIzaSyAbQ9a200vEpPWkcocDPxd30r-AAT3fy9o",
+FIREBASE_AUTH_DOMAIN: "inventario-dialisis.firebaseapp.com",
+FIREBASE_PROJECT_ID: "inventario-dialisis",
+FIREBASE_STORAGE_BUCKET: "inventario-dialisis.firebasestorage.app",
+FIREBASE_MESAGING_SENDER_ID: "530048330025",
+FIREBASE_APP_ID: "1:530048330025:web:f0b7e5ac45287d6cf7ef38",
+FIREBASE_MEASUREMENT_ID: "G-F853NP93YX"
+JWT_SECRET="hsSAUIKJHKgvfklcoaouiabdyrwvUy"

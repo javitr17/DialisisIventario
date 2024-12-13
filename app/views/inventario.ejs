@@ -1,0 +1,88 @@
+<%- include('header') %>
+
+<!-- Formulario que se despliega -->
+<div id="sideFormContainer" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50">
+    <div class="flex justify-center items-center h-full">
+        <!-- Contenedor blanco -->
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+            <!-- Botón de cierre -->
+            <button id="closeFormButton" class="text-black font-bold text-xl absolute"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-2xl font-semibold mb-4 text-center">Añadir</h2>
+            <form id="dataForm">
+                <!-- Campos del formulario -->
+                <label for="id">ID</label>
+                <input type="number" id="id" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="name">Nombre</label>
+                <input type="text" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="type">Tipo</label>
+                <input type="text" id="type" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="subtype">Subtipo</label>
+                <input type="text" id="subtype" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="bar_code">Código de Barras</label>
+                <input type="text" id="bar_code" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="batch">Lote</label>
+                <input type="text" id="batch" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="expiry_date">Fecha de Caducidad</label>
+                <input type="date" id="expiry_date" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="units">Unidades</label>
+                <input type="number" id="units" class="w-full p-2 mb-4 border border-gray-300 rounded-md" required>
+                <label for="price">Precio Proveedor</label>
+                <input type="number" id="price" class="w-full p-2 mb-4 border border-gray-300 rounded-md" step="any" required>
+          
+                <div class="flex justify-between">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Guardar</button>
+                    <button type="button" id="cancelButton" class="bg-gray-300 text-black px-4 py-2 rounded-md">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+  
+<div class="container mx-auto p-4 flex justify-center">
+    
+    <!-- Contenedor con desbordamiento horizontal -->
+    <div class="overflow-x-auto w-full max-w-7xl"> <!-- Este contenedor hará que la tabla sea desplazable horizontalmente -->
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 text-left border border-gray-300">ID</th>
+                    <th class="p-2 text-left border border-gray-300">Nombre</th>
+                    <th class="p-2 text-left border border-gray-300">Tipo</th>
+                    <th class="p-2 text-left border border-gray-300">Subtipo</th>
+                    <th class="p-2 text-left border border-gray-300">Código de Barras</th>
+                    <th class="p-2 text-left border border-gray-300">Lote</th>
+                    <th class="p-2 text-left border border-gray-300">Fecha de Caducidad</th>
+                    <th class="p-2 text-left border border-gray-300">Precio Proveedor</th>
+                    <th class="p-2 text-left border border-gray-300">Unidades Pedidas (Pendiente de llegada)</th>
+                    <th class="p-2 text-left border border-gray-300">Inventario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Mostrar los productos -->
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td class="p-2 border-b border-gray-300"><%= product.id %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.name %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.type %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.subtype %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.bar_code %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.batch %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.expiry_date %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.price %>€</td>
+                        <td class="p-2 border-b border-gray-300"><%= product.pending_units %></td>
+                        <td class="p-2 border-b border-gray-300"><%= product.inventory %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/inventario.js"></script>
+<script src="/js/cerrar_sesion.js"></script>
+
+
+
+</body>
+</html>

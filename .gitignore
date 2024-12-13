@@ -1,0 +1,47 @@
+# Dependencias de Node.js
+node_modules/
+credentials/*.json
+
+# Archivos de configuración del entorno (archivos de entorno privados)
+.env
+.env.local
+.env.*.local
+
+# Archivos de logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Directorios de compilación
+/dist
+/build
+/coverage
+
+# Archivos de configuración de IDEs y editores (Visual Studio Code, etc.)
+.vscode/
+.idea/
+
+# Archivos de depuración
+*.log
+*.out
+
+# Directorios de tests (si usas alguna herramienta de testing como Jest, Mocha, etc.)
+/test-coverage
+/coverage/
+
+# Archivos generados por herramientas de build (Webpack, Babel, etc.)
+/public
+/cache
+
+# Archivos de configuración de Firebase
+credentials/*.json
+
+# Otros archivos temporales o innecesarios
+*.tgz
+*.bak
+*.swp
+.vercel
